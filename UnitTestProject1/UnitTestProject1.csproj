@@ -57,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +69,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataToWindowsService\DataToWindowsService.csproj">
+      <Project>{1D551DB1-2C65-43B2-BC91-91C2F0A3F6DD}</Project>
+      <Name>DataToWindowsService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ForVBDLL\ForVBDLL.csproj">
       <Project>{F381AADE-448E-4867-8DAA-E3424EDB63A9}</Project>
       <Name>ForVBDLL</Name>

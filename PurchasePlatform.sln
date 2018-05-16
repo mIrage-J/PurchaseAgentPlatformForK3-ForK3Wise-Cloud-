@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForVBDLL", "ForVBDLL\ForVBD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{A82C8F0B-0A6A-46C7-BC5E-0FC47F75268C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataToWindowsService", "DataToWindowsService\DataToWindowsService.csproj", "{1D551DB1-2C65-43B2-BC91-91C2F0A3F6DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAServiceSocketTool", "PAServiceSocketTool\PAServiceSocketTool.csproj", "{064DC19E-9D45-45DB-B8E5-591B5D317F17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchaseAgentWindowsService", "PurchaseAgentWindowsService\PurchaseAgentWindowsService.csproj", "{935E7CE6-2383-4BF7-AF7F-E8550EC4A4C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{A82C8F0B-0A6A-46C7-BC5E-0FC47F75268C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A82C8F0B-0A6A-46C7-BC5E-0FC47F75268C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A82C8F0B-0A6A-46C7-BC5E-0FC47F75268C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D551DB1-2C65-43B2-BC91-91C2F0A3F6DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D551DB1-2C65-43B2-BC91-91C2F0A3F6DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D551DB1-2C65-43B2-BC91-91C2F0A3F6DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D551DB1-2C65-43B2-BC91-91C2F0A3F6DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{064DC19E-9D45-45DB-B8E5-591B5D317F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{064DC19E-9D45-45DB-B8E5-591B5D317F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{064DC19E-9D45-45DB-B8E5-591B5D317F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{064DC19E-9D45-45DB-B8E5-591B5D317F17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935E7CE6-2383-4BF7-AF7F-E8550EC4A4C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935E7CE6-2383-4BF7-AF7F-E8550EC4A4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935E7CE6-2383-4BF7-AF7F-E8550EC4A4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935E7CE6-2383-4BF7-AF7F-E8550EC4A4C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
 using System.IO;
 using static System.Windows.Forms.ListViewItem;
 using System.Data.SqlClient;
@@ -131,13 +130,14 @@ namespace ForVBDLL
             if(listView1.Focused)
             {
                 var ID = Convert.ToInt64( listView1.FocusedItem.SubItems["ID"].Text);
-                var cloudMaterialID = context.Prices.Where(p => p.OriEntryID == ID).Select(p => p.OriMaterialID).FirstOrDefault();
+                var cloudMaterialID = context.Prices.Where(p => p.ID == ID).Select(p => p.OriMaterialID).FirstOrDefault();
                 SqlParameter[] param =
                 {
-                    new SqlParameter("@ID", ID)
+                    new SqlParameter("@MatID", cloudMaterialID)
                 };
 
-                var a= context.Database.SqlQuery<Int64>("Exec proc_SY_InsertMaterial @ID",cloudMaterialID).ToList().FirstOrDefault();
+                var a= context.Database.SqlQuery<Int64>("Exec proc_SY_InsertMaterial @MatID",param).ToList().FirstOrDefault();
+                ReturnData(a.ToString());
             }
         }
 
