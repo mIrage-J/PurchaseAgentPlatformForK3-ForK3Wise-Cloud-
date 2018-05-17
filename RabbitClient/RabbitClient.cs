@@ -15,12 +15,10 @@ using System.Xml.Serialization;
 
 namespace RabbitClient
 {
-    class RabbitClient
+    public class RabbitClient
     {
-
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Welcome");
+        public static void GetData()
+        {            
             var factory = new ConnectionFactory()
             {
                 HostName = "192.168.1.150",
@@ -42,7 +40,7 @@ namespace RabbitClient
 
                     var consumer = new EventingBasicConsumer(channel);
 
-                    consumer.Received += (model, ea) =>
+                    consumer.Received +=  (model, ea) =>
                     {
                         var body = ea.Body;
                         XmlSerializer xs = new XmlSerializer(typeof(DataTable));
@@ -53,20 +51,22 @@ namespace RabbitClient
                             SqlConnection sqlConnection = new SqlConnection("data source=192.168.1.150;initial catalog=Test;persist security info=True;user id=sa;password=123;MultipleActiveResultSets=True;");
                             sqlConnection.Open();
                             SqlCommand command = new SqlCommand($"insert into mqtest values({table.Rows[0][0]},'{table.Rows[0][1]}')",sqlConnection);
-                            command.ExecuteNonQuery();
-
-                            Console.WriteLine($"{table.Rows[0][0]},{table.Rows[0][1]}");
+                            command.ExecuteNonQuery();                            
                         }
                         channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                     };
                     channel.BasicConsume("table_queue", false, consumer);
-                    
-                    Console.ReadKey();
+
+                    while (true)
+                    {
+                        Thread.Sleep(1000);
+                    }
+
                 }
             }
-            
-
         }
+
+        
 
         
 
