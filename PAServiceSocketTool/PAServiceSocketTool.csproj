@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>PAServiceSocketTool</RootNamespace>
     <AssemblyName>PAServiceSocketTool</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -51,6 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RabbitServer\RabbitServer.csproj">
+      <Project>{95f8be9f-3b48-43d5-9124-16f7b80a8edc}</Project>
+      <Name>RabbitServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

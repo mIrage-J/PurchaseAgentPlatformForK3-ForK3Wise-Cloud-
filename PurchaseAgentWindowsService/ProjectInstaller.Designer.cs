@@ -36,12 +36,14 @@
             this.serviceProcessInstaller1.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this.serviceProcessInstaller1.Password = null;
             this.serviceProcessInstaller1.Username = null;
+            this.serviceProcessInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceProcessInstaller1_AfterInstall);
             // 
             // PurchaseAgentWindowsService
             // 
             this.PurchaseAgentWindowsService.Description = "PurchaseAgentWindowsService";
             this.PurchaseAgentWindowsService.ServiceName = "PurchaseAgentWindowsService";
             this.PurchaseAgentWindowsService.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            this.PurchaseAgentWindowsService.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.PurchaseAgentWindowsService_AfterInstall);
             // 
             // ProjectInstaller
             // 

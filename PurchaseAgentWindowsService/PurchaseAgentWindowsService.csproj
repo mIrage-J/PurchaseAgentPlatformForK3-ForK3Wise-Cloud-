@@ -7,8 +7,8 @@
     <ProjectGuid>{935E7CE6-2383-4BF7-AF7F-E8550EC4A4C6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WindowsServiceFramwork</RootNamespace>
-    <AssemblyName>WindowsServiceFramwork</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AssemblyName>PurchaseAgentWindowsService</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />

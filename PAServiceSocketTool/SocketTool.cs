@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Data;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Diagnostics;
+using RabbitServer;
 
 namespace PAServiceSocketTool
 {
@@ -73,8 +74,10 @@ namespace PAServiceSocketTool
                     {
                         excepiton = "尝试接受一个来自TableReceiver的Table，但是由二进制转换为DataTable时失败了";
                     }
-                    
-                    
+
+                    Task task = RabbitServerTool.Post(data);
+                    task.Wait();
+
                     data = Encoding.ASCII.GetBytes(excepiton==""?excepiton:succeed);
                     client.Send(data, data.Length, SocketFlags.None);
 

@@ -1,4 +1,4 @@
-﻿using PurchaseAgentWindowsServiceTool;
+﻿using PAServiceSocketTool;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +29,7 @@ namespace WindowsServiceFramwork
 
         private async void RunTool()
         {
-            PAWindowsServiceTool tool = new PAWindowsServiceTool();
+            SocketTool tool = new SocketTool();
             await Task.Run(() => tool.Run());
         }
     }
