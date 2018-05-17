@@ -8,11 +8,12 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DataToWindowsService
 {
-    public class TableReceiver
+    public class TableSender
     {
         DataTable table;
         string IPAdress;
@@ -24,19 +25,15 @@ namespace DataToWindowsService
         /// <param name="table">要传递到Windows服务的DataTable</param>
         /// <param name="IPAdress">默认为本机，不能用计算机名，格式必须保持与默认值格式一致</param>
         /// <param name="port">Windows服务的端口</param>
-        public TableReceiver(DataTable table,string IPAdress= "127.0.0.1",int port= 8999)
+        public TableSender(DataTable table,string IPAdress= "127.0.0.1",int port= 8999)
         {
             this.table = table;
             this.IPAdress = IPAdress;
             this.port = port;
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Windows服务返回的信息</returns>
-        [STAThread]
-        public string TransportData()
+        
+        public void TransportData()
         {
             byte[] data = new byte[1024];
             Socket newClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -67,12 +64,16 @@ namespace DataToWindowsService
             formatter.Serialize(ms, table);
             newClient.Send(ms.GetBuffer());
             ms.Dispose();
-            data = new byte[1024];
-            recv = newClient.Receive(data);
-            string stringdata = Encoding.ASCII.GetString(data, 0, recv);           
-            newClient.Shutdown(SocketShutdown.Send);
+            newClient.Shutdown(SocketShutdown.Both);
             newClient.Close();
-            return stringdata;
+
+            //Thread.Sleep(1000);
+
+            //data = new byte[1024];
+            //recv = newClient.Receive(data);
+            //string stringdata = Encoding.ASCII.GetString(data, 0, recv);           
+
+
         }
     }
 }

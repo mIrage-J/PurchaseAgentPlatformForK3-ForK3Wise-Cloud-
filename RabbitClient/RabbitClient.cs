@@ -3,6 +3,7 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,25 +11,16 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace RabbitClient
 {
     class RabbitClient
     {
-        
+
         static void Main(string[] args)
         {
-            Console.WriteLine(PostData());
-            Console.ReadLine();
-
-
-        }
-
-        public static string PostData()
-        {
-            bool isError = false;
-            string result = "";
-
+            Console.WriteLine("Welcome");
             var factory = new ConnectionFactory()
             {
                 HostName = "192.168.1.150",
@@ -40,44 +32,43 @@ namespace RabbitClient
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.ExchangeDeclare("table", "fanout");
+                    channel.QueueDeclare(queue: "table_queue",
+                           durable: false,
+                           exclusive: false, 
+                           autoDelete: false, 
+                           arguments: null);
 
-                    var queueName = channel.QueueDeclare().QueueName;
 
-                    channel.QueueBind(queueName, "table", "");
 
                     var consumer = new EventingBasicConsumer(channel);
 
                     consumer.Received += (model, ea) =>
                     {
-                        DataTable table = new DataTable();
-
                         var body = ea.Body;
-                        MemoryStream ms = new MemoryStream(body);
-                        IFormatter formatter = new BinaryFormatter();
+                        XmlSerializer xs = new XmlSerializer(typeof(DataTable));
 
-                        try
+                        using (MemoryStream ms = new MemoryStream(body))
                         {
-                            table = formatter.Deserialize(ms) as DataTable;
-                            result = $"Successed!Data:{ table.Rows[0][0]}: { table.Rows[0][1]}";
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            isError = true;
+                            DataTable table = (DataTable)xs.Deserialize(ms);
+                            SqlConnection sqlConnection = new SqlConnection("data source=192.168.1.150;initial catalog=Test;persist security info=True;user id=sa;password=123;MultipleActiveResultSets=True;");
+                            sqlConnection.Open();
+                            SqlCommand command = new SqlCommand($"insert into mqtest values({table.Rows[0][0]},'{table.Rows[0][1]}')",sqlConnection);
+                            command.ExecuteNonQuery();
+
+                            Console.WriteLine($"{table.Rows[0][0]},{table.Rows[0][1]}");
                         }
                         channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-
-
                     };
-                    channel.BasicConsume(queue: queueName,
-                        autoAck: true,
-                        consumer: consumer);
+                    channel.BasicConsume("table_queue", false, consumer);
+                    
+                    Console.ReadKey();
                 }
             }
-            return isError ? "尝试接受一个来自TableReceiver的Table，但是由二进制转换为DataTable时失败了" : result;
-
+            
 
         }
+
         
+
     }
 }

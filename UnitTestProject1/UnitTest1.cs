@@ -19,16 +19,16 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestTableReceiver()
         {
-            DataTable table = new DataTable();
-            table.Columns.Add("ID");
-            table.Columns.Add("Name");
+            DataTable table = new DataTable() { TableName="TableName"};            
+            table.Columns.Add("ID",typeof(int));
+            table.Columns.Add("Name",typeof(string));
             var row = table.NewRow();
             row[0] = 1;
             row[1] = "Adam";
             table.Rows.Add(row);
 
-            TableReceiver tableReceiver = new TableReceiver(table);
-            Console.WriteLine( tableReceiver.TransportData());
+            TableSender tableReceiver = new TableSender(table);
+            tableReceiver.TransportData();
         }
     }
 }
