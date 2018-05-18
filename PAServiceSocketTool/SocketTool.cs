@@ -13,6 +13,7 @@ using System.Diagnostics;
 using RabbitServer;
 using System.Threading;
 using System.Xml.Serialization;
+using System.Collections;
 
 namespace PAServiceSocketTool
 {
@@ -133,13 +134,31 @@ namespace PAServiceSocketTool
 
 
             while (true)
-            {
-                byte[] data = new byte[client.ReceiveBufferSize];
-                int recv = client.Receive(data);
-                Console.WriteLine("recv=" + recv);
+            {   
+                byte[] dataSingle = new byte[client.ReceiveBufferSize];
+                byte[] data = new byte[0];
+                int recv;
+                do
+                {
+                    byte[] temp = new byte[data.Length];
+                    data.CopyTo(temp, 0);
+                    recv = client.Receive(dataSingle);
+                    ArrayList a=new ArrayList(dataSingle);
+                    a.RemoveRange(recv, a.Count - recv);
+                    a.CopyTo(dataSingle = new byte[recv]);
+                    data = new byte[data.Length + recv];
+                    temp.CopyTo(data, 0);                    
+                    dataSingle.CopyTo(data, data.Length-recv);
+                }
+                while (recv == 8192);
+
+
+                
+                //Console.WriteLine("recv=" + recv);
                 if (recv == 0)
                 {
                     data = null;
+                    dataSingle = null;
                     break;
                 }
 

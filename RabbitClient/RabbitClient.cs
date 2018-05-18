@@ -47,11 +47,16 @@ namespace RabbitClient
 
                         using (MemoryStream ms = new MemoryStream(body))
                         {
+                            string connectString= Properties.Settings.Default.databaseString;
                             DataTable table = (DataTable)xs.Deserialize(ms);
-                            SqlConnection sqlConnection = new SqlConnection("data source=192.168.1.150;initial catalog=Test;persist security info=True;user id=sa;password=123;MultipleActiveResultSets=True;");
+                            SqlConnection sqlConnection = new SqlConnection(connectString);
                             sqlConnection.Open();
-                            SqlCommand command = new SqlCommand($"insert into mqtest values({table.Rows[0][0]},'{table.Rows[0][1]}')",sqlConnection);
-                            command.ExecuteNonQuery();                            
+                            SqlCommand command = sqlConnection.CreateCommand();
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.CommandText = @"" + "MergeIntoPriceCatalogue";
+                            SqlParameter paramTable = command.Parameters.AddWithValue("@Sources", table); //参数必须和存储过程中的参数名一致
+                            command.ExecuteNonQuery();
+                            sqlConnection.Close();
                         }
                         channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                     };
