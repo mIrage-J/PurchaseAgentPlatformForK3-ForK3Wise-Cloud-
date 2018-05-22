@@ -20,18 +20,18 @@ namespace PAServiceSocketTool
     public class SocketTool
     {
         int port;
-        public SocketTool(int port=8999)
+        public SocketTool(int port = 8999)
         {
             this.port = port;
         }
 
-        
+
         public void Run()
         {
             //int recv;
             //byte[] data = new byte[1024];//缓存客户端发送的信息，socket传递的信息为字节数组
             IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Any, 8999);//这里是指监听所有IP地址，然后8999是本机打开的端口
-           
+
 
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -39,7 +39,7 @@ namespace PAServiceSocketTool
             socket.Listen(10);//监听
 
 
-            Thread thread = new Thread(Listen){IsBackground = true};
+            Thread thread = new Thread(Listen) { IsBackground = true };
 
             thread.Start(socket);
 
@@ -102,13 +102,13 @@ namespace PAServiceSocketTool
             //    //Console.WriteLine("Waiting for a client ......");
             //    log.WriteEntry("Waiting for a client ......", EventLogEntryType.Information);
             //}
-#endregion
+            #endregion
 
         }
 
         static void Listen(object sk)
         {
-            
+
             Socket socket = sk as Socket;
 
             while (true)
@@ -119,9 +119,9 @@ namespace PAServiceSocketTool
                 thread.Start(client);
             }
 
-            
+
         }
-        
+
         static void Receive(object sk)
         {
             EventLog log = new EventLog();
@@ -134,7 +134,7 @@ namespace PAServiceSocketTool
 
 
             while (true)
-            {   
+            {
                 byte[] dataSingle = new byte[client.ReceiveBufferSize];
                 byte[] data = new byte[0];
                 int recv;
@@ -143,17 +143,17 @@ namespace PAServiceSocketTool
                     byte[] temp = new byte[data.Length];
                     data.CopyTo(temp, 0);
                     recv = client.Receive(dataSingle);
-                    ArrayList a=new ArrayList(dataSingle);
+                    ArrayList a = new ArrayList(dataSingle);
                     a.RemoveRange(recv, a.Count - recv);
                     a.CopyTo(dataSingle = new byte[recv]);
                     data = new byte[data.Length + recv];
-                    temp.CopyTo(data, 0);                    
-                    dataSingle.CopyTo(data, data.Length-recv);
+                    temp.CopyTo(data, 0);
+                    dataSingle.CopyTo(data, data.Length - recv);
                 }
                 while (recv == 8192);
 
 
-                
+
                 //Console.WriteLine("recv=" + recv);
                 if (recv == 0)
                 {
@@ -172,19 +172,24 @@ namespace PAServiceSocketTool
                 {
                     table = serializer.Deserialize(ms) as DataTable;
                     succeed = $"Receive succeed,from {clientIP.Address}.Table[{table.TableName}] has been push to RabbitMQ queue,with {table.Rows?.Count} row(s)";
+                    RabbitServerTool.PostQueue(
+                   data: data,
+                   queueName: table.TableName
+                   );
                 }
                 catch (InvalidOperationException)
                 {
                     excepiton = "尝试接受一个来自TableReceiver的Table，但是由二进制转换为DataTable时失败了";
                 }
 
-                RabbitServerTool.PostQueue(data);
+
+
 
                 //data = Encoding.ASCII.GetBytes(excepiton == "" ? excepiton : succeed);
                 //client.Send(data);
 
                 ms.Dispose();
-                
+
 
                 //接收完成，写入Windows应用程序日志
                 if (excepiton == "")

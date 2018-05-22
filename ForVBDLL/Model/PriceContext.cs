@@ -26,7 +26,7 @@ namespace ForVBDLL.Model
                 .HasPrecision(18, 4);
 
             modelBuilder.Entity<PriceModel>()
-                .Property(e => e.SupplyName)
+                .Property(e => e.SupplierName)
                 .IsUnicode(false);
 
             

@@ -16,11 +16,9 @@ namespace ForVBDLL.Model
 
         public decimal? OriPrice { get; set; }
 
-        public long? SupplyID { get; set; }
+        public long? SupplierID { get; set; }
 
-        public string SupplyName { get; set; }
-
-        public long? CustomerOrgID { get; set; }
+        public string SupplierName { get; set; }       
 
         public long? OriEntryID { get; set; }
 

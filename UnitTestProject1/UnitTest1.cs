@@ -13,10 +13,12 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
         public void TestMethod1()
         {
             ClassTest test = new ClassTest();
-            test.Test();
+            var a= test.Test();
+            Assert.AreEqual(Convert.ToDecimal(a[2]) , 6000m);
         }
 
         [TestMethod]
@@ -30,7 +32,7 @@ namespace UnitTestProject1
             //row[1] = "Adam";
             //table.Rows.Add(row);
             DataTable table = new DataTable() { TableName = "TableName" };
-            SqlConnection conn = new SqlConnection("data source=192.168.1.150;initial catalog=MW;persist security info=True;user id=sa;password=123;MultipleActiveResultSets=True;");
+            SqlConnection conn = new SqlConnection("data source=192.168.1.231;initial catalog=PurchaseCloud_20180512;persist security info=True;user id=sa;password=qwe123;MultipleActiveResultSets=True;");
             SqlCommand comm = new SqlCommand( "SELECT * FROM dbo.SY_V_PRICELIST",conn);
             conn.Open();
             SqlDataAdapter adapter = new SqlDataAdapter(comm);
@@ -66,6 +68,13 @@ namespace UnitTestProject1
 
                 DataTable table2 = (DataTable)xs.Deserialize(ms);
             }
+        }
+
+        [TestMethod]
+        public void TestPush()
+        {
+            ClassTest classTest = new ClassTest();
+            classTest.PushToCloud(true, "1004");
         }
     }
 }

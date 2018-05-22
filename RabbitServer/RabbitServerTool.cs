@@ -19,6 +19,8 @@ namespace RabbitServer
             await Task.Run(() => Test(data));            
         }
 
+        
+
         /// <summary>
         /// 异步方法，无需使用
         /// </summary>
@@ -42,7 +44,7 @@ namespace RabbitServer
                 }
             }
         }
-        public static void PostQueue(byte[] data)
+        public static void PostQueue(byte[] data, string queueName = "table_queue")
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
 
@@ -50,7 +52,7 @@ namespace RabbitServer
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: "table_queue",
+                    channel.QueueDeclare(queue: queueName,
                         durable:false,
                         exclusive: false,
                         autoDelete: false,
@@ -60,7 +62,7 @@ namespace RabbitServer
                     properties.Persistent = true;
 
                     channel.BasicPublish(exchange: "",
-                        routingKey: "table_queue",
+                        routingKey: queueName,
                         basicProperties:properties,
                         body: data);
                 }

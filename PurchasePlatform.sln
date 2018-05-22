@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForVBDLL", "ForVBDLL\ForVBDLL.csproj", "{F381AADE-448E-4867-8DAA-E3424EDB63A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WisePlugin", "ForVBDLL\WisePlugin.csproj", "{F381AADE-448E-4867-8DAA-E3424EDB63A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{A82C8F0B-0A6A-46C7-BC5E-0FC47F75268C}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitClient", "RabbitClien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Purchase Agent Customer Service", "Purchase Agent Customer Service\Purchase Agent Customer Service.csproj", "{1294D67A-C29D-435A-A70A-714F98E2191F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WisePlgin", "WisePlgin\WisePlgin.csproj", "{53E330E8-8416-49BC-AE1A-ADCFB2327303}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudPlugin", "CloudPlugin\CloudPlugin.csproj", "{31409C28-21A0-4A93-BDB4-86B6D75154E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +59,10 @@ Global
 		{1294D67A-C29D-435A-A70A-714F98E2191F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1294D67A-C29D-435A-A70A-714F98E2191F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1294D67A-C29D-435A-A70A-714F98E2191F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53E330E8-8416-49BC-AE1A-ADCFB2327303}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53E330E8-8416-49BC-AE1A-ADCFB2327303}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53E330E8-8416-49BC-AE1A-ADCFB2327303}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53E330E8-8416-49BC-AE1A-ADCFB2327303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31409C28-21A0-4A93-BDB4-86B6D75154E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31409C28-21A0-4A93-BDB4-86B6D75154E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31409C28-21A0-4A93-BDB4-86B6D75154E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31409C28-21A0-4A93-BDB4-86B6D75154E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
